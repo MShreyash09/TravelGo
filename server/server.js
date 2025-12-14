@@ -1,22 +1,21 @@
-require("dotenv").config();
+require("dotenv").config({ path: "./.env" });
+
 const express = require("express");
 const cors = require("cors");
+const connectDB = require("./config/db");
 
 const app = express();
 
-const connectDB = require("./config/db");
+// connect database
 connectDB();
-
 
 // middleware
 app.use(cors());
 app.use(express.json());
 
+// routes
 app.use("/api/destinations", require("./routes/destinationRoutes"));
 
-
-
-// test route
 app.get("/", (req, res) => {
   res.send("TravelGo Backend Running");
 });
