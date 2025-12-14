@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/login.css";
+import Header from '../components/header'
+import Footer from '../components/footer'
+
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -35,28 +38,36 @@ export default function Login() {
   };
 
   return (
-    <div className="login-container">
-      <form className="login-box" onSubmit={handleLogin}>
-        <h2>Login</h2>
+    <>
+          <Header />
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+          <div className="login-container">
+          <form className="login-box" onSubmit={handleLogin}>
+            <h2>Login</h2>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
 
-        <button type="submit">Login</button>
-      </form>
-    </div>
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+
+            <button type="submit">Login</button>
+          </form>
+        </div>
+
+          <Footer />
+
+    </>
+    
   );
 }
