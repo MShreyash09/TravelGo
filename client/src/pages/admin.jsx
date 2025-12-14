@@ -12,6 +12,8 @@ export default function Admin() {
     price: ""
   });
 
+  const token = localStorage.getItem("token");
+
   const fetchDestinations = async () => {
     const res = await fetch("http://localhost:5000/api/destinations");
     const data = await res.json();
@@ -29,23 +31,25 @@ export default function Admin() {
     });
   };
 
-  const handleEdit = (destination) => {
-    setEditId(destination._id);
+  const handleEdit = (d) => {
+    setEditId(d._id);
     setFormData({
-      name: destination.name,
-      country: destination.country,
-      description: destination.description,
-      image: destination.image,
-      price: destination.price
+      name: d.name,
+      country: d.country,
+      description: d.description,
+      image: d.image,
+      price: d.price
     });
   };
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm("Delete this destination?");
-    if (!confirmDelete) return;
+    if (!window.confirm("Delete this destination?")) return;
 
     await fetch(`http://localhost:5000/api/destinations/${id}`, {
-      method: "DELETE"
+      method: "DELETE",
+      headers: {
+        Authorization: token
+      }
     });
 
     fetchDestinations();
@@ -62,7 +66,10 @@ export default function Admin() {
 
     await fetch(url, {
       method,
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token
+      },
       body: JSON.stringify({
         ...formData,
         price: Number(formData.price)
@@ -87,7 +94,6 @@ export default function Admin() {
     <div style={{ padding: "30px" }}>
       <h2>Admin – Manage Destinations</h2>
 
-      {/* ADD / UPDATE FORM */}
       <form onSubmit={handleSubmit}>
         <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
         <input name="country" value={formData.country} onChange={handleChange} placeholder="Country" required />
@@ -101,17 +107,9 @@ export default function Admin() {
 
       <hr />
 
-      {/* DESTINATION CARDS */}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+      <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
         {destinations.map((d) => (
-          <div
-            key={d._id}
-            style={{
-              border: "1px solid #ccc",
-              padding: "15px",
-              width: "250px"
-            }}
-          >
+          <div key={d._id} style={{ border: "1px solid #ccc", padding: "15px", width: "250px" }}>
             <img src={d.image} alt={d.name} style={{ width: "100%" }} />
             <h3>{d.name}</h3>
             <p>{d.country}</p>

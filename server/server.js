@@ -1,26 +1,18 @@
-require("dotenv").config({ path: "./.env" });
-
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
 
 const app = express();
-
-// connect database
 connectDB();
 
-// middleware
 app.use(cors());
 app.use(express.json());
 
-// routes
+app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/destinations", require("./routes/destinationRoutes"));
 
-app.get("/", (req, res) => {
-  res.send("TravelGo Backend Running");
-});
+app.get("/", (req, res) => res.send("API running"));
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
