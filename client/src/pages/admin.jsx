@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 export default function Admin() {
   const [destinations, setDestinations] = useState([]);
@@ -91,7 +93,9 @@ export default function Admin() {
   };
 
   return (
-    <div style={{ padding: "30px" }}>
+    <>
+      <Header />
+        <div style={{ padding: "30px" }}>
       <h2>Admin – Manage Destinations</h2>
 
       <form onSubmit={handleSubmit}>
@@ -119,7 +123,11 @@ export default function Admin() {
             <button onClick={() => handleDelete(d._id)}>Delete</button>
           </div>
         ))}
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
+
+    
   );
 }
