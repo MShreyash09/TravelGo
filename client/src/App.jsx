@@ -10,6 +10,9 @@ import Admin from "./pages/admin";
 import AdminRoute from "./routes/AdminRoute";
 import Login from "./pages/login";
 import Signup from "./pages/Signup";
+import DestinationDetails from "./pages/destinationDetails";
+
+
 
 
 
@@ -26,6 +29,8 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/destination/:id" element={<DestinationDetails />} />
+        
 
 
         {/* PROTECTED ADMIN ROUTE */}

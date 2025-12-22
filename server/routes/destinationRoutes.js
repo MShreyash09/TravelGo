@@ -6,13 +6,15 @@ const admin = require("../middleware/admin");
 
 const {
   getDestinations,
+  getDestinationById,
   addDestination,
   updateDestination,
   deleteDestination
 } = require("../controllers/destinationController");
 
-// USER + ADMIN
+// PUBLIC
 router.get("/", getDestinations);
+router.get("/:id", getDestinationById);
 
 // ADMIN ONLY
 router.post("/", auth, admin, addDestination);

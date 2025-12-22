@@ -45,69 +45,97 @@
 //       );
 // }
 
+// import { useEffect, useState } from "react";
+// import Header from "../components/header";
+// import "../css/destination.css";
+// import { getDestinations } from "../api";
+// import Footer from "../components/footer";
+
+// export default function Destination() {
+
+// const [loading, setLoading] = useState(true);
+// const [error, setError] = useState("");
+
+// useEffect(() => {
+//   getDestinations()
+//     .then((data) => {
+//       setDestinations(data);
+//       setLoading(false);
+//     })
+//     .catch(() => {
+//       setError("Failed to load destinations");
+//       setLoading(false);
+//     });
+// }, []);
+
+//   const [destinations, setDestinations] = useState([]);
+
+//   useEffect(() => {
+//     getDestinations()
+//       .then((data) => setDestinations(data))
+//       .catch((err) => console.error(err));
+//   }, []);
+
+// if (loading) return <h2>Loading...</h2>;
+// if (error) return <h2>{error}</h2>;
+
+
+//   return (
+//     <>
+//       <Header />
+//       <div className="destination-container">
+//         <h1>Popular Destinations</h1>
+
+//         <div className="destination-container">
+//           {destinations.map((item) => (
+//             <div className="destination-card" key={item._id}>
+//               <img src={item.image} alt={item.name} />
+//               <h3>{item.name}</h3>
+//               <p>{item.description}</p>
+//               <span>₹{item.price}</span>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//       <Footer />
+
+    
+//     </>
+    
+//   );
+// }
+
+
 import { useEffect, useState } from "react";
+import DestinationCard from "../components/DestinationCard";
 import Header from "../components/header";
-import "../css/destination.css";
-import { getDestinations } from "../api";
 import Footer from "../components/footer";
 
+
 export default function Destination() {
-
-const [loading, setLoading] = useState(true);
-const [error, setError] = useState("");
-
-useEffect(() => {
-  getDestinations()
-    .then((data) => {
-      setDestinations(data);
-      setLoading(false);
-    })
-    .catch(() => {
-      setError("Failed to load destinations");
-      setLoading(false);
-    });
-}, []);
-
-
-
-
-
   const [destinations, setDestinations] = useState([]);
 
   useEffect(() => {
-    getDestinations()
-      .then((data) => setDestinations(data))
-      .catch((err) => console.error(err));
+    fetch("http://localhost:5000/api/destinations")
+      .then(res => res.json())
+      .then(data => setDestinations(data));
   }, []);
-
-if (loading) return <h2>Loading...</h2>;
-if (error) return <h2>{error}</h2>;
-
 
   return (
     <>
       <Header />
-      <div className="destination-container">
-        <h1>Popular Destinations</h1>
-
-        <div className="destination-container">
-          {destinations.map((item) => (
-            <div className="destination-card" key={item._id}>
-              <img src={item.image} alt={item.name} />
-              <h3>{item.name}</h3>
-              <p>{item.description}</p>
-              <span>₹{item.price}</span>
-            </div>
-          ))}
-        </div>
+      <h2>Top Destinations</h2>
+      <div className="destination-grid">
+        {destinations.map((d) => (
+          <DestinationCard key={d._id} destination={d} />
+        ))}
       </div>
-      <Footer />
 
-    
+      <Footer />
     </>
-    
   );
 }
+
 
 
 
