@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const paymentRoutes = require("./routes/paymentRoutes");
 
 const app = express();
 connectDB();
@@ -11,6 +12,8 @@ app.use(express.json());
 
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/destinations", require("./routes/destinationRoutes"));
+app.use("/api/payment", paymentRoutes);
+
 
 app.get("/", (req, res) => res.send("API running"));
 

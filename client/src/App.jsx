@@ -11,6 +11,7 @@ import AdminRoute from "./routes/AdminRoute";
 import Login from "./pages/login";
 import Signup from "./pages/Signup";
 import DestinationDetails from "./pages/destinationDetails";
+import PaymentSuccess from "./pages/PaymentSuccess";
 
 
 
@@ -30,7 +31,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/destination/:id" element={<DestinationDetails />} />
-        
+        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/payment-cancel" element={<h2>Payment Cancelled</h2>} />
+
 
 
         {/* PROTECTED ADMIN ROUTE */}
