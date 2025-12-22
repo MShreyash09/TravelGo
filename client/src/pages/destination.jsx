@@ -124,12 +124,16 @@ export default function Destination() {
   return (
     <>
       <Header />
-      <h2>Top Destinations</h2>
-      <div className="destination-grid">
-        {destinations.map((d) => (
-          <DestinationCard key={d._id} destination={d} />
-        ))}
-      </div>
+      
+     
+        <center><h2>Top Destinations</h2></center>
+        <div className="destination-grid">
+
+          {destinations.map((d) => (
+            <DestinationCard key={d._id} destination={d} />
+          ))}
+        </div>
+      
 
       <Footer />
     </>

@@ -4,6 +4,8 @@ const destinationSchema = new mongoose.Schema({
   name: String,
   country: String,
   description: String,
+  location: String,
+  duration: Number,
   image: String,
   price: Number
 });

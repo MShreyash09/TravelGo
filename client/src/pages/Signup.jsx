@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/signup.css";
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 export default function Signup() {
   const [name, setName] = useState("");
@@ -36,42 +38,47 @@ export default function Signup() {
   };
 
   return (
-    <div className="signup-container">
-      <form className="signup-box" onSubmit={handleSignup}>
-        <h2>Sign Up</h2>
+    <>
+        <Header />
+            <div className="signup-container">
+              <form className="signup-box" onSubmit={handleSignup}>
+                <h2>Sign Up</h2>
 
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
+                <input
+                  type="text"
+                  placeholder="Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
 
-        {/* ROLE SELECT */}
-        <select value={role} onChange={(e) => setRole(e.target.value)}>
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
-        </select>
+                {/* ROLE SELECT */}
+                <select value={role} onChange={(e) => setRole(e.target.value)}>
+                  <option value="user">User</option>
+                  <option value="admin">Admin</option>
+                </select>
 
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
+                <button type="submit">Sign Up</button>
+              </form>
+            </div>
+        <Footer />
+    </>
+    
   );
 }

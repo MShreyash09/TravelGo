@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Header from "../components/header";
+import Footer from "../components/footer"
+import "../css/detail.css"
 
 export default function DestinationDetails() {
   const { id } = useParams();
@@ -48,15 +50,48 @@ export default function DestinationDetails() {
 
   return (
     <>
-      <Header />
-      <div style={{ padding: "30px" }}>
-        <img src={destination.image} width="400" alt={destination.name} />
-        <h1>{destination.name}</h1>
-        <h3>{destination.country}</h3>
-        <p>{destination.description}</p>
-        <h2>₹{destination.price}</h2>
-        <button onClick={handlePayment}>Explore Country</button>
-      </div>
+        <Header />
+
+          <div className="details-page">
+            <div className="details-container">
+
+              {/* Image Section */}
+              <div className="image-box">
+                <img src={destination.image} alt={destination.name} />
+              </div>
+
+              {/* Info Section */}
+              <div className="details">
+                <h1>{destination.name}</h1>
+                <h3>{destination.country}</h3>
+
+                <div className="rating">⭐⭐⭐⭐☆ <span>(4.5 / 5)</span></div>
+
+                <p className="meta">📍 {destination.location}</p>
+                <p className="meta">🕒 {destination.duration} days</p>
+
+                <p className="description">{destination.description}</p>
+
+                <div className="included">
+                  <h4>What’s Included</h4>
+                  <ul>
+                    <li>✔ Flight Tickets</li>
+                    <li>✔ Hotel Accommodation</li>
+                    <li>✔ Local Transportation</li>
+                    <li>✔ Tour Guide</li>
+                  </ul>
+                </div>
+
+                <div className="price-section">
+                  <h2>₹{destination.price}</h2>
+                  <button onClick={handlePayment}>Explore Country</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        <Footer />
     </>
   );
 }

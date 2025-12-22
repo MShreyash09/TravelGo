@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "../css/destinationCard.css";
+import CustomButton from "./button";
 
 export default function DestinationCard({ destination }) {
   const navigate = useNavigate();
@@ -11,6 +12,8 @@ export default function DestinationCard({ destination }) {
     >
       <img src={destination.image} alt={destination.name} />
       <h3>{destination.name}</h3>
+      <h4>Starting from <br />₹{destination.price}</h4><br />
+      <center><CustomButton>Explore More</CustomButton></center>
     </div>
   );
 }
