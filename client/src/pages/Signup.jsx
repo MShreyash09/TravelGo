@@ -42,6 +42,9 @@ export default function Signup() {
         <Header />
             <div className="signup-container">
               <form className="signup-box" onSubmit={handleSignup}>
+                <img src="/travelgo-logo.png" alt="logo" />
+                
+
                 <h2>Sign Up</h2>
 
                 <input

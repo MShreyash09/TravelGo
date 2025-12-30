@@ -42,8 +42,14 @@ export default function Login() {
           <Header />
 
           <div className="login-container">
+
           <form className="login-box" onSubmit={handleLogin}>
-            <h2>Login</h2>
+          <img src="/travelgo-logo.png" alt="logo" />
+
+            <h2>Welcome Back!</h2>
+            <br /><br />
+
+            <h2>Login </h2>
 
             <input
               type="email"

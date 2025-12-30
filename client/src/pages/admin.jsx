@@ -96,7 +96,9 @@ export default function Admin() {
     <>
       <Header />
         <div style={{ padding: "30px" }}>
-      <h2>Admin – Manage Destinations</h2>
+        <center>
+          <h2>Admin – Manage Destinations</h2>
+        </center>
 
       <form onSubmit={handleSubmit}>
         <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
@@ -118,8 +120,9 @@ export default function Admin() {
             <h3>{d.name}</h3>
             <p>{d.country}</p>
             <p>₹{d.price}</p>
+            <br /><br />
 
-            <button onClick={() => handleEdit(d)}>Update</button>
+            <button onClick={() => handleEdit(d)}>Update</button> <br /> <br />
             <button onClick={() => handleDelete(d._id)}>Delete</button>
           </div>
         ))}

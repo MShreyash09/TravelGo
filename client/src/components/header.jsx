@@ -18,10 +18,10 @@ export default function Header() {
         {role === "admin" && <Link to="/admin">Admin</Link>}
 
         {/* Login / Logout */}
-        {!token && <Link to="/login">Login</Link>}
+        {!token && <Link to="/login">Sign In</Link>}
         {token && <Logout />}
 
-        {!token && <Link to="/signup">Signup</Link>}
+        {!token && <Link to="/signup">Sign Up</Link>}
         
 
       </header>
