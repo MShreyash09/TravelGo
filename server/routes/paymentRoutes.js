@@ -1,12 +1,12 @@
 const express = require("express");
 const Stripe = require("stripe");
 const Payment = require("../models/payment");
-const auth = require("../middleware/auth");
+const auth = require("../middleware/authMiddleware");
 
 const router = express.Router();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-const authMiddleware = require("../middleware/auth");
+const authMiddleware = require("../middleware/authMiddleware");
 const { createCheckoutSession } = require("../controllers/paymentController");
 
 router.post(

@@ -1,0 +1,25 @@
+.review-section {
+  margin-top: 40px;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 600px;
+}
+
+.review-form textarea {
+  min-height: 100px;
+}
+
+.review-card {
+  background: #f8f8f8;
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 8px;
+}
+
+.stars {
+  color: gold;
+}

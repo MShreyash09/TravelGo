@@ -2,11 +2,18 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Header from "../components/header";
 import Footer from "../components/footer"
+import Review from "../components/review";
 import "../css/detail.css"
 
 export default function DestinationDetails() {
   const { id } = useParams();
   const [destination, setDestination] = useState(null);
+
+  const [reviews, setReviews] = useState([]);
+  const [rating, setRating] = useState(5);
+  const [comment, setComment] = useState("");
+
+
 
   useEffect(() => {
     fetch(`http://localhost:5000/api/destinations/${id}`)
@@ -14,6 +21,44 @@ export default function DestinationDetails() {
       .then(data => setDestination(data))
       .catch(() => alert("Failed to load destination"));
   }, [id]);
+
+
+  useEffect(() => {
+  fetch(`http://localhost:5000/api/reviews/${id}`)
+    .then(res => res.json())
+    .then(data => setReviews(data));
+  }, [id]);
+
+  const submitReview = async () => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    alert("Please login to add review");
+    return;
+  }
+
+  await fetch("http://localhost:5000/api/reviews", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      destinationId: id,
+      rating,
+      comment
+    })
+  });
+
+  setComment("");
+  setRating(5);
+
+  // refresh reviews
+  const res = await fetch(`http://localhost:5000/api/reviews/${id}`);
+  setReviews(await res.json());
+  };
+
+
 
   const handlePayment = async () => {
     if (!destination) return alert("Destination not loaded");
@@ -87,6 +132,9 @@ export default function DestinationDetails() {
                   <button onClick={handlePayment}>Explore Country</button>
                 </div>
               </div>
+
+              <Review destinationId={id} />
+
 
             </div>
           </div>
