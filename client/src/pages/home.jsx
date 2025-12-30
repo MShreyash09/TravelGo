@@ -1,11 +1,8 @@
-import Header from "../components/header";
-import Footer from "../components/footer";
 import { Link } from "react-router-dom";
 import '../css/home.css'
 export default function Home() {
       return (
             <>
-                  <Header />
 
                   <h1 className="title1">Welcome to TravelGo!</h1>
                   <div className="start-page">
@@ -15,7 +12,6 @@ export default function Home() {
                         <Link to="/destination"><button type="button">Explore Destinations</button></Link>
                   </div>
 
-                  <Footer />
             </>
       );
 }

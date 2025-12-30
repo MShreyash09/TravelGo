@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/login.css";
-import Header from '../components/header'
-import Footer from '../components/footer'
+
 
 
 export default function Login() {
@@ -29,6 +28,9 @@ export default function Login() {
     localStorage.setItem("token", data.token);
     localStorage.setItem("role", data.role);
 
+    
+
+
     // Redirect based on role
     if (data.role === "admin") {
       navigate("/admin");
@@ -39,7 +41,6 @@ export default function Login() {
 
   return (
     <>
-          <Header />
 
           <div className="login-container">
 
@@ -71,7 +72,6 @@ export default function Login() {
           </form>
         </div>
 
-          <Footer />
 
     </>
     

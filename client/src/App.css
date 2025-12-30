@@ -41,7 +41,7 @@
   color: #888;
 } */
 
-html, body {
+/* html, body {
   height: 100%;
   margin: 0;
 }
@@ -54,5 +54,23 @@ html, body {
 
 .main-content {
   flex: 1;
+} */
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+/* App layout */
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main content expands */
+.main-content {
+  flex: 1;
+}

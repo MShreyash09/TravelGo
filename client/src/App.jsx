@@ -1,54 +1,19 @@
 import "./App.css";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
-
-import Home from "./pages/home";
-import Destination from "./pages/destination";
-import About from "./pages/about";
-import Contact from "./pages/contact";
-import Admin from "./pages/admin";
-
-import AdminRoute from "./routes/AdminRoute";
-import Login from "./pages/login";
-import Signup from "./pages/Signup";
-import DestinationDetails from "./pages/destinationDetails";
-import PaymentSuccess from "./pages/PaymentSuccess";
-
-
-
-
+import { BrowserRouter as Router } from "react-router-dom";
+import Template from "./pages/template";
+import Header from "./components/header";
+import Footer from "./components/footer";
 
 function App() {
   return (
-
-
-   
     <Router>
-      
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/destination" element={<Destination />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/destination/:id" element={<DestinationDetails />} />
-        <Route path="/payment-success" element={<PaymentSuccess />} />
-        <Route path="/payment-cancel" element={<h2>Payment Cancelled</h2>} />
-
-
-
-        {/* PROTECTED ADMIN ROUTE */}
-        <Route
-          path="/admin"
-          element={
-            <AdminRoute>
-              <Admin />
-            </AdminRoute>
-          }
-        />
-      </Routes>
+      <div className="app-layout">
+        <Header />
+        <main className="main-content">
+          <Template />
+        </main>
+        <Footer />
+      </div>
     </Router>
   );
 }

@@ -108,8 +108,7 @@
 
 import { useEffect, useState } from "react";
 import DestinationCard from "../components/DestinationCard";
-import Header from "../components/header";
-import Footer from "../components/footer";
+
 
 
 export default function Destination() {
@@ -123,7 +122,7 @@ export default function Destination() {
 
   return (
     <>
-      <Header />
+      
       
         <br /><br /><br />
         <strong><center><h2>Top Destinations</h2></center></strong>
@@ -136,7 +135,6 @@ export default function Destination() {
         </div>
       
 
-      <Footer />
     </>
   );
 }

@@ -1,6 +1,4 @@
 import { useState } from "react";
-import Header from "../components/header";
-import Footer from "../components/footer";
 import "../css/contact.css";
 
 export default function Contact() {
@@ -46,7 +44,6 @@ export default function Contact() {
 
   return (
     <>
-      <Header />
 
       <main>
         <h1>Contact Us</h1>
@@ -107,7 +104,6 @@ export default function Contact() {
         </form>
       </main>
 
-      <Footer />
     </>
   );
 }

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import Header from "../components/header";
-import Footer from "../components/footer";
+
 
 export default function Admin() {
   const [destinations, setDestinations] = useState([]);
@@ -94,7 +93,6 @@ export default function Admin() {
 
   return (
     <>
-      <Header />
         <div style={{ padding: "30px" }}>
         <center>
           <h2>Admin – Manage Destinations</h2>
@@ -128,7 +126,6 @@ export default function Admin() {
         ))}
         </div>
       </div>
-      <Footer />
     </>
 
     

@@ -1,7 +1,5 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Header from "../components/header";
-import Footer from "../components/footer"
 import Review from "../components/review";
 import "../css/detail.css"
 
@@ -95,7 +93,6 @@ export default function DestinationDetails() {
 
   return (
     <>
-        <Header />
 
           <div className="details-page">
             <div className="details-container">
@@ -142,7 +139,6 @@ export default function DestinationDetails() {
               <Review destinationId={id} />
             </div>
 
-        <Footer />
     </>
   );
 }

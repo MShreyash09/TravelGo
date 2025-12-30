@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/signup.css";
-import Header from "../components/header";
-import Footer from "../components/footer";
+
 
 export default function Signup() {
   const [name, setName] = useState("");
@@ -39,7 +38,6 @@ export default function Signup() {
 
   return (
     <>
-        <Header />
             <div className="signup-container">
               <form className="signup-box" onSubmit={handleSignup}>
                 <img src="/travelgo-logo.png" alt="logo" />
@@ -80,7 +78,6 @@ export default function Signup() {
                 <button type="submit">Sign Up</button>
               </form>
             </div>
-        <Footer />
     </>
     
   );

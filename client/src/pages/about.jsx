@@ -1,11 +1,8 @@
-import Header from "../components/header";
-import Footer from "../components/footer";
 import '../css/about.css'
 
 export default function About() {
       return (
             <>
-                  <Header />
 
                   <main class="about-page">
                         <h1>About TravelGo</h1>
@@ -33,7 +30,6 @@ export default function About() {
                         </ul>
                   </main>
 
-                  <Footer />
             </>
       );
 }
