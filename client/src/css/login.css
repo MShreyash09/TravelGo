@@ -8,8 +8,8 @@
 
 img {
   /* border: 2px solid red; */
-  height: 100px;
-  width: 100px;
+  height: auto;
+  width: auto;
 }
 
 .login-box {

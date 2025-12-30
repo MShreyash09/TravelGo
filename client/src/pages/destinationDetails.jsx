@@ -133,11 +133,14 @@ export default function DestinationDetails() {
                 </div>
               </div>
 
-              <Review destinationId={id} />
 
 
             </div>
           </div>
+
+            <div className="review-container">
+              <Review destinationId={id} />
+            </div>
 
         <Footer />
     </>

@@ -125,8 +125,9 @@ export default function Destination() {
     <>
       <Header />
       
-     
-        <center><h2>Top Destinations</h2></center>
+        <br /><br /><br />
+        <strong><center><h2>Top Destinations</h2></center></strong>
+        <br /><br /><br />
         <div className="destination-grid">
 
           {destinations.map((d) => (

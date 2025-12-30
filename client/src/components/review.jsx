@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import "../css/review.css";
 
 export default function Review({ destinationId }) {
   const [reviews, setReviews] = useState([]);
@@ -13,11 +14,7 @@ export default function Review({ destinationId }) {
 
   const submitReview = async () => {
     const token = localStorage.getItem("token");
-
-    if (!token) {
-      alert("Please login");
-      return;
-    }
+    if (!token) return alert("Please login");
 
     const res = await fetch("http://localhost:5000/api/reviews", {
       method: "POST",
@@ -25,19 +22,11 @@ export default function Review({ destinationId }) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`
       },
-      body: JSON.stringify({
-        destinationId,  // ✅ NOW CORRECT
-        rating,
-        comment
-      })
+      body: JSON.stringify({ destinationId, rating, comment })
     });
 
     const data = await res.json();
-
-    if (!res.ok) {
-      alert(data.message);
-      return;
-    }
+    if (!res.ok) return alert(data.message);
 
     setComment("");
     setRating(5);
@@ -75,13 +64,23 @@ export default function Review({ destinationId }) {
         </div>
       )}
 
-      {reviews.map(r => (
-        <div key={r._id} className="review-card">
-          <strong>{r.user.email}</strong>
-          <p>{"⭐".repeat(r.rating)}</p>
-          <p>{r.comment}</p>
-        </div>
-      ))}
+      <div className="review-list">
+        {reviews.map(r => {
+          const username = r.user.email.split("@")[0];
+
+          return (
+            <div key={r._id} className="review-card">
+              <div className="review-header">
+                <span className="username">{username}</span>
+                <span className="stars">
+                  {"⭐".repeat(r.rating)}
+                </span>
+              </div>
+              <p className="review-comment">{r.comment}</p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
