@@ -1,12 +1,12 @@
-import { useNavigate } from "react-router-dom";
-
-export default function Logout() {
-  const navigate = useNavigate();
-
+// src/components/Logout.jsx
+export default function Logout({ setIsLoggedIn, setUserRole, navigate }) {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
-    navigate("/login");
+    setIsLoggedIn(false);
+    setUserRole(null);
+    if (navigate) navigate("/login");
+    else window.location.href = "/login";
   };
 
   return <button onClick={handleLogout}>Logout</button>;

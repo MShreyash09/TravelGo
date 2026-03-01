@@ -1,31 +1,25 @@
-import { Link } from "react-router-dom";
+// src/components/Header.jsx
+import { Link, useNavigate } from "react-router-dom";
 import "../css/header.css";
 import Logout from "./Logout";
 
-export default function Header() {
-  const token = localStorage.getItem("token");
-  const role = localStorage.getItem("role");
+export default function Header({ isLoggedIn, setIsLoggedIn, userRole, setUserRole }) {
+  const navigate = useNavigate();
 
   return (
-    <>
-      <header>
-        <Link to="/">Home</Link>
-        <Link to="/destination">Destination</Link>
-        <Link to="/about">About</Link>
-        <Link to="/contact">Contact</Link>
+    <header>
+      <Link to="/">Home</Link>
+      <Link to="/destination">Destination</Link>
+      <Link to="/about">About</Link>
+      <Link to="/contact">Contact</Link>
 
-        {/* Show only for admin */}
-        {role === "admin" && <Link to="/admin">Admin</Link>}
+      {userRole === "admin" && <Link to="/admin">Admin</Link>}
 
-        {/* Login / Logout */}
-        {!token && <Link to="/login">Sign In</Link>}
-        {token && <Logout />}
-
-        {!token && <Link to="/signup">Sign Up</Link>}
-        
-
-      </header>
-    </>
+      {!isLoggedIn && <Link to="/login">Sign In</Link>}
+      {!isLoggedIn && <Link to="/signup">Sign Up</Link>}
+      {isLoggedIn && (
+        <Logout setIsLoggedIn={setIsLoggedIn} setUserRole={setUserRole} navigate={navigate} />
+      )}
+    </header>
   );
 }
-
