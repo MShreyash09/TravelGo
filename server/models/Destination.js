@@ -4,10 +4,10 @@ const destinationSchema = new mongoose.Schema({
   name: String,
   country: String,
   description: String,
-  location: String,
-  duration: Number,
-  image: String,
-  price: Number
-});
+  price: Number,
+
+  images: [String], // 👈 MULTIPLE IMAGES
+
+}, { timestamps: true });
 
 module.exports = mongoose.model("Destination", destinationSchema);

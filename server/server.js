@@ -1,10 +1,9 @@
+// server.js
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
-const paymentRoutes = require("./routes/paymentRoutes");
-const reviewRoutes = require("./routes/reviewRoutes");
-
+const path = require("path");
 
 const app = express();
 connectDB();
@@ -12,16 +11,16 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
+// auth routes (ensure file name authRoutes.js)
 app.use("/api/auth", require("./routes/authRoutes"));
+
+// other routes (keep your existing route requires)
 app.use("/api/destinations", require("./routes/destinationRoutes"));
-app.use("/api/payment", paymentRoutes);
+app.use("/api/payment", require("./routes/paymentRoutes"));
+app.use("/api/reviews", require("./routes/reviewRoutes"));
 
-
-
-
-
-app.use("/api/reviews", reviewRoutes);
-
+// serve uploads
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get("/", (req, res) => res.send("API running"));
 
