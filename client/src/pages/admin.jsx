@@ -1,133 +1,104 @@
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
+import '../css/admin.css';
 
 export default function Admin() {
-  const [destinations, setDestinations] = useState([]);
-  const [editId, setEditId] = useState(null);
-
   const [formData, setFormData] = useState({
     name: "",
     country: "",
     description: "",
-    image: "",
-    price: ""
+    price: "",
+    duration: "",
+    location: ""
   });
 
-  const token = localStorage.getItem("token");
+  const [images, setImages] = useState([]);
 
-  const fetchDestinations = async () => {
-    const res = await fetch("http://localhost:5000/api/destinations");
-    const data = await res.json();
-    setDestinations(data);
-  };
-
-  useEffect(() => {
-    fetchDestinations();
-  }, []);
-
+  // TEXT INPUT HANDLER
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleEdit = (d) => {
-    setEditId(d._id);
-    setFormData({
-      name: d.name,
-      country: d.country,
-      description: d.description,
-      image: d.image,
-      price: d.price
-    });
+  // IMAGE HANDLER
+  const handleImageChange = (e) => {
+    setImages(e.target.files);
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Delete this destination?")) return;
-
-    await fetch(`http://localhost:5000/api/destinations/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: token
-      }
-    });
-
-    fetchDestinations();
-  };
-
+  // SUBMIT
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const url = editId
-      ? `http://localhost:5000/api/destinations/${editId}`
-      : "http://localhost:5000/api/destinations";
+    const token = localStorage.getItem("token");
+    if (!token) return alert("Unauthorized");
 
-    const method = editId ? "PUT" : "POST";
+    const data = new FormData();
 
-    await fetch(url, {
-      method,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token
-      },
-      body: JSON.stringify({
-        ...formData,
-        price: Number(formData.price)
-      })
+    // append text fields
+    Object.keys(formData).forEach(key => {
+      data.append(key, formData[key]);
     });
 
-    alert(editId ? "Destination Updated!" : "Destination Added!");
+    // append images
+    for (let i = 0; i < images.length; i++) {
+      data.append("images", images[i]);
+    }
 
+    const res = await fetch("http://localhost:5000/api/destinations", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: data
+    });
+
+    const result = await res.json();
+
+    if (!res.ok) {
+      alert(result.message || "Upload failed");
+      return;
+    }
+
+    alert("Destination added successfully");
+
+    // reset form
     setFormData({
       name: "",
       country: "",
       description: "",
-      image: "",
-      price: ""
+      price: "",
+      duration: "",
+      location: ""
     });
-
-    setEditId(null);
-    fetchDestinations();
+    setImages([]);
   };
 
   return (
-    <>
-        <div style={{ padding: "30px" }}>
-        <center>
-          <h2>Admin – Manage Destinations</h2>
-        </center>
+    <div className="admin-container">
+      <h1>Add Destination</h1>
 
-      <form onSubmit={handleSubmit}>
-        <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
-        <input name="country" value={formData.country} onChange={handleChange} placeholder="Country" required />
-        <input name="image" value={formData.image} onChange={handleChange} placeholder="Image URL" required />
-        <input name="price" value={formData.price} onChange={handleChange} placeholder="Price" required />
-        <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Description" required />
-        <button type="submit">
-          {editId ? "Update Destination" : "Add Destination"}
-        </button>
+      <form onSubmit={handleSubmit} className="admin-form">
+
+        <input name="name" placeholder="Destination Name" onChange={handleChange} />
+        <input name="country" placeholder="Country" onChange={handleChange} />
+        <input name="location" placeholder="Location" onChange={handleChange} />
+        <input name="duration" placeholder="Duration (days)" onChange={handleChange} />
+        <input name="price" placeholder="Price" type="number" onChange={handleChange} />
+
+        <textarea
+          name="description"
+          placeholder="Description"
+          onChange={handleChange}
+        />
+
+        {/* IMAGE UPLOAD */}
+        <input
+          type="file"
+          multiple
+          accept="image/*"
+          onChange={handleImageChange}
+        />
+
+        <button type="submit">Add Destination</button>
       </form>
-
-      <hr />
-
-      <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-        {destinations.map((d) => (
-          <div key={d._id} style={{ border: "1px solid #ccc", padding: "15px", width: "250px" }}>
-            <img src={d.image} alt={d.name} style={{ width: "100%" }} />
-            <h3>{d.name}</h3>
-            <p>{d.country}</p>
-            <p>₹{d.price}</p>
-            <br /><br />
-
-            <button onClick={() => handleEdit(d)}>Update</button> <br /> <br />
-            <button onClick={() => handleDelete(d._id)}>Delete</button>
-          </div>
-        ))}
-        </div>
-      </div>
-    </>
-
-    
+    </div>
   );
 }

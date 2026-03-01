@@ -7,6 +7,9 @@ export default function DestinationDetails() {
   const { id } = useParams();
   const [destination, setDestination] = useState(null);
 
+  const [currentImage, setCurrentImage] = useState(0);
+
+
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
@@ -99,8 +102,38 @@ export default function DestinationDetails() {
 
               {/* Image Section */}
               <div className="image-box">
-                <img src={destination.image} alt={destination.name} />
+                <img
+                  src={`http://localhost:5000${destination.images[currentImage]}`}
+                  alt={destination.name}
+                />
+
+                <div className="slider-controls">
+                  <button
+                    onClick={() =>
+                      setCurrentImage(
+                        currentImage === 0
+                          ? destination.images.length - 1
+                          : currentImage - 1
+                      )
+                    }
+                  >
+                    ◀
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      setCurrentImage(
+                        currentImage === destination.images.length - 1
+                          ? 0
+                          : currentImage + 1
+                      )
+                    }
+                  >
+                    ▶
+                  </button>
+                </div>
               </div>
+
 
               {/* Info Section */}
               <div className="details">

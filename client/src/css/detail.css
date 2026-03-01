@@ -251,3 +251,35 @@ button:hover {
   }
 }
 
+.image-box {
+  position: relative;
+}
+
+.image-box img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.slider-controls {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.slider-controls button {
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  font-size: 18px;
+  padding: 8px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.slider-controls button:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
