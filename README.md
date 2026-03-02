@@ -1,7 +1,8 @@
-![TravelGo logo](client/travelgo-logo.png)
+directly upload the image in readme, you will get the url path for it.
 
-
+<img width="1536" height="1024" alt="travelgo-logo" src="https://github.com/user-attachments/assets/786c57e3-1458-45d5-879b-baba8fc95ff5" />
 # TravelGo 🌍
+
 
 A modern, full-stack travel and destination booking platform designed to help users explore, review, and book their dream vacations.
 
