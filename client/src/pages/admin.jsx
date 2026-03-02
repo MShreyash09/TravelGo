@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import '../css/admin.css';
+import toast from "react-hot-toast";
+import { API_BASE_URL } from "../api";
 
 export default function Admin() {
   const [formData, setFormData] = useState({
@@ -22,11 +24,12 @@ export default function Admin() {
 
   const fetchDestinations = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/destinations");
+      const res = await fetch(`${API_BASE_URL}/api/destinations`);
       const data = await res.json();
       setDestinations(data);
     } catch (error) {
       console.error("Error fetching destinations:", error);
+      toast.error("Failed to load destinations.");
     }
   };
 
@@ -49,7 +52,7 @@ export default function Admin() {
     e.preventDefault();
 
     const token = localStorage.getItem("token");
-    if (!token) return alert("Unauthorized");
+    if (!token) return toast.error("Unauthorized");
 
     const data = new FormData();
 
@@ -61,7 +64,7 @@ export default function Admin() {
       data.append("images", images[i]);
     }
 
-    const res = await fetch("http://localhost:5000/api/destinations", {
+    const res = await fetch(`${API_BASE_URL}/api/destinations`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`
@@ -72,11 +75,11 @@ export default function Admin() {
     const result = await res.json();
 
     if (!res.ok) {
-      alert(result.message || "Upload failed");
+      toast.error(result.message || "Upload failed");
       return;
     }
 
-    alert("Destination added successfully");
+    toast.success("Destination added successfully");
 
     setFormData({
       name: "",
@@ -95,10 +98,10 @@ export default function Admin() {
     if (!window.confirm("Are you sure you want to delete this destination?")) return;
 
     const token = localStorage.getItem("token");
-    if (!token) return alert("Unauthorized");
+    if (!token) return toast.error("Unauthorized");
 
     try {
-      const res = await fetch(`http://localhost:5000/api/destinations/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/destinations/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`
@@ -106,15 +109,15 @@ export default function Admin() {
       });
 
       if (res.ok) {
-        alert("Destination deleted successfully");
+        toast.success("Destination deleted successfully");
         fetchDestinations(); // Refresh list
       } else {
         const result = await res.json();
-        alert(result.message || "Failed to delete");
+        toast.error(result.message || "Failed to delete");
       }
     } catch (error) {
       console.error("Error deleting:", error);
-      alert("Error deleting destination");
+      toast.error("Error deleting destination");
     }
   };
 
@@ -122,10 +125,10 @@ export default function Admin() {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    if (!token) return alert("Unauthorized");
+    if (!token) return toast.error("Unauthorized");
 
     try {
-      const res = await fetch(`http://localhost:5000/api/destinations/${editingDestination._id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/destinations/${editingDestination._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -135,16 +138,16 @@ export default function Admin() {
       });
 
       if (res.ok) {
-        alert("Destination updated successfully");
+        toast.success("Destination updated successfully");
         setEditingDestination(null); // Close modal
         fetchDestinations(); // Refresh list
       } else {
         const result = await res.json();
-        alert(result.message || "Failed to update");
+        toast.error(result.message || "Failed to update");
       }
     } catch (error) {
       console.error("Error updating:", error);
-      alert("Error updating destination");
+      toast.error("Error updating destination");
     }
   };
 
@@ -187,7 +190,7 @@ export default function Admin() {
               <div key={dest._id} className="destination-item">
                 <div className="destination-info">
                   <h3>{dest.name}</h3>
-                  <p>{dest.location}, {dest.country} - ${dest.price}</p>
+                  <p>{dest.location}, {dest.country} - ₹{dest.price}</p>
                 </div>
                 <div className="destination-actions">
                   <button className="edit-btn" onClick={() => setEditingDestination(dest)}>Edit</button>

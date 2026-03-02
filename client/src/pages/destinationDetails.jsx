@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import Review from "../components/review";
 import "../css/detail.css"
 import { useTranslation } from "../hooks/useTranslation";
+import toast from "react-hot-toast";
+import { API_BASE_URL } from "../api";
 
 export default function DestinationDetails() {
   const { id } = useParams();
@@ -18,15 +20,15 @@ export default function DestinationDetails() {
 
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/destinations/${id}`)
+    fetch(`${API_BASE_URL}/api/destinations/${id}`)
       .then(res => res.json())
       .then(data => setDestination(data))
-      .catch(() => alert("Failed to load destination"));
+      .catch(() => toast.error("Failed to load destination"));
   }, [id]);
 
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/reviews/${id}`)
+    fetch(`${API_BASE_URL}/api/reviews/${id}`)
       .then(res => res.json())
       .then(data => setReviews(data));
   }, [id]);
@@ -35,11 +37,11 @@ export default function DestinationDetails() {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      alert("Please login to add review");
+      toast.error("Please login to add review");
       return;
     }
 
-    await fetch("http://localhost:5000/api/reviews", {
+    await fetch(`${API_BASE_URL}/api/reviews`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,20 +58,21 @@ export default function DestinationDetails() {
     setRating(5);
 
     // refresh reviews
-    const res = await fetch(`http://localhost:5000/api/reviews/${id}`);
+    const res = await fetch(`${API_BASE_URL}/api/reviews/${id}`);
     setReviews(await res.json());
+    toast.success("Review posted!");
   };
 
 
 
   const handlePayment = async () => {
-    if (!destination) return alert("Destination not loaded");
+    if (!destination) return toast.error("Destination not loaded");
 
     const token = localStorage.getItem("token");
-    if (!token) return alert("Please login to continue");
+    if (!token) return toast.error("Please login to continue");
 
     const res = await fetch(
-      "http://localhost:5000/api/payment/create-checkout-session",
+      `${API_BASE_URL}/api/payment/create-checkout-session`,
       {
         method: "POST",
         headers: {
@@ -86,7 +89,7 @@ export default function DestinationDetails() {
     const data = await res.json();
 
     if (!res.ok) {
-      alert(data.message || "Payment failed");
+      toast.error(data.message || "Payment failed");
       return;
     }
 
@@ -117,8 +120,9 @@ export default function DestinationDetails() {
           {/* Image Section */}
           <div className="image-box">
             <img
-              src={`http://localhost:5000${destination.images[currentImage]}`}
+              src={destination.images && destination.images.length > 0 ? `${API_BASE_URL}${destination.images[currentImage]}` : destination.image}
               alt={destination.name}
+              loading="lazy"
             />
 
             <div className="slider-controls">

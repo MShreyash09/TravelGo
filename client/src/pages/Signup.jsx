@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/signup.css";
+import toast from "react-hot-toast";
+import { API_BASE_URL } from "../api";
 
 export default function Signup({ setIsLoggedIn, setUserRole }) {
   const [name, setName] = useState("");
@@ -14,7 +16,7 @@ export default function Signup({ setIsLoggedIn, setUserRole }) {
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:5000/api/auth/signup", {
+    const res = await fetch(`${API_BASE_URL}/api/auth/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -29,7 +31,7 @@ export default function Signup({ setIsLoggedIn, setUserRole }) {
     const data = await res.json();
 
     if (!res.ok) {
-      alert(data.message || "Signup failed");
+      toast.error(data.message || "Signup failed");
       return;
     }
 
@@ -39,13 +41,14 @@ export default function Signup({ setIsLoggedIn, setUserRole }) {
       localStorage.setItem("role", data.user.role);
       setIsLoggedIn(true);
       setUserRole(data.user.role);
+      toast.success("Logged in automatically");
       if (data.user.role === "admin") navigate("/admin");
       else navigate("/destination");
       return;
     }
 
     // Fallback: if just message, redirect to login
-    alert("Signup successful. Please login.");
+    toast.success("Signup successful. Please login.");
     navigate("/login");
   };
 

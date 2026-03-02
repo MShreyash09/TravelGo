@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "../css/contact.css";
 import { useTranslation } from "../hooks/useTranslation";
+import toast from "react-hot-toast";
+import { API_BASE_URL } from "../api";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -30,7 +32,7 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:5000/api/contact", {
+    const res = await fetch(`${API_BASE_URL}/api/contact`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,7 +42,7 @@ export default function Contact() {
     });
 
     if (res.ok) {
-      alert("Your request has been sent to admin");
+      toast.success("Your request has been sent to admin");
       setFormData({
         name: "",
         email: "",
@@ -48,7 +50,7 @@ export default function Contact() {
         message: "",
       });
     } else {
-      alert("Failed to send message");
+      toast.error("Failed to send message");
     }
   };
 
