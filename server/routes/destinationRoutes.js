@@ -26,7 +26,14 @@ router.post(
   addDestination
 );
 
-router.put("/:id", auth, admin, updateDestination);
+router.put(
+  "/:id",
+  auth,
+  admin,
+  upload.array("images", 5),
+  updateDestination
+);
+
 router.delete("/:id", auth, admin, deleteDestination);
 
 module.exports = router;

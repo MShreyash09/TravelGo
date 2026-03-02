@@ -23,6 +23,9 @@ app.use("/api/destinations", require("./routes/destinationRoutes"));
 app.use("/api/payment", require("./routes/paymentRoutes"));
 app.use("/api/reviews", require("./routes/reviewRoutes"));
 
+//sarvam translation routes
+app.use("/api/translate", require("./routes/translateRoute"));
+
 // serve uploads
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
