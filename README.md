@@ -1,3 +1,6 @@
+![Alt text for the logo](../public/travelgo-logo.png)
+
+
 # TravelGo 🌍
 
 A modern, full-stack travel and destination booking platform designed to help users explore, review, and book their dream vacations.
