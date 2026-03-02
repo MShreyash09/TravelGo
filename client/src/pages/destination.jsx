@@ -7,7 +7,7 @@
 //       return (
 //             <>
 //                   
-                  
+
 //                   <div className="destination-container">
 //                         <Card img={"india.jpg"} country={"India"} description={"A land of timeless traditions, vibrant festivals, and diverse landscapes from the Himalayas to serene beaches"} state1={"Maharashtra"} state2={"New Delhi"} state3={"Hydrabad"} price={"1,40,000"} />
 //                         <Card img={"itlay.jpg"} country={"Italy"} description={"The cradle of art, fashion, and cuisine — from Roman ruins to Venetian canals and Tuscan vineyards"} state1={"Tuscany"} state2={"Veneto"} state3={"Lazio"} price={"1,20,000"} />
@@ -40,7 +40,7 @@
 
 
 //                   
-                  
+
 //             </>
 //       );
 // }
@@ -99,46 +99,48 @@
 //       </div>
 //       <Footer />
 
-    
+
 //     </>
-    
+
 //   );
 // }
 
 
 import { useEffect, useState } from "react";
 import DestinationCard from "../components/DestinationCard";
-
-
+import { useTranslation } from "../hooks/useTranslation";
 
 export default function Destination() {
   const [destinations, setDestinations] = useState([]);
+  const title = useTranslation("Top Destinations");
 
   useEffect(() => {
     fetch("http://localhost:5000/api/destinations")
-      .then(res => res.json())
-      .then(data => setDestinations(data));
+      .then((res) => res.json())
+      .then((data) => setDestinations(data));
   }, []);
 
   return (
     <>
-      
-      
-        <br /><br /><br />
-        <strong><center><h2>Top Destinations</h2></center></strong>
-        <br /><br /><br />
-        <div className="destination-grid">
-
-          {destinations.map((d) => (
-            <DestinationCard key={d._id} destination={d} />
-          ))}
-        </div>
-      
-
+      <br />
+      <br />
+      <br />
+      <strong>
+        <center>
+          <h2>{title}</h2>
+        </center>
+      </strong>
+      <br />
+      <br />
+      <br />
+      <div className="destination-grid">
+        {destinations.map((d) => (
+          <DestinationCard key={d._id} destination={d} />
+        ))}
+      </div>
     </>
   );
 }
-
 
 
 
