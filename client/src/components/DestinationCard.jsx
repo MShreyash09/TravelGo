@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "../css/destinationCard.css";
 import CustomButton from "./button";
 import { useTranslation } from "../hooks/useTranslation";
-import { API_BASE_URL } from "../api";
+import { API_BASE_URL } from "./src/api.js";
 
 export default function DestinationCard({ destination }) {
   const navigate = useNavigate();
