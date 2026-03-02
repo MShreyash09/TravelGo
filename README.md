@@ -1,4 +1,4 @@
-![Alt text for the logo](../public/travelgo-logo.png)
+![TravelGo logo](client/travelgo-logo.png)
 
 
 # TravelGo 🌍
