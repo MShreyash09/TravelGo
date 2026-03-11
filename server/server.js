@@ -8,9 +8,9 @@ const path = require("path");
 const app = express();
 connectDB();
 
-//modified cors to only map to live frontend link
+//modified cors to allow local and live frontend links
 app.use(cors({
-  origin: "https://simple-travelgo.vercel.app/",
+  origin: ["https://simple-travelgo.vercel.app", "http://localhost:5173"],
   credentials: true
 }));
 app.use(express.json());

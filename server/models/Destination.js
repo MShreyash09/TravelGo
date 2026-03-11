@@ -8,7 +8,7 @@ const destinationSchema = new mongoose.Schema({
   description: String,
   price: Number,
 
-  images: [String], // 👈 MULTIPLE IMAGES
+  images: [String], //  handels multiple images
 
 }, { timestamps: true });
 

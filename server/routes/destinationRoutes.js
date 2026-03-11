@@ -22,7 +22,7 @@ router.post(
   "/",
   auth,
   admin,
-  upload.array("images", 5), // ✅ SINGLE SOURCE OF TRUTH
+  upload.array("images", 5), // can take 5 images for each destination
   addDestination
 );
 
