@@ -14,6 +14,8 @@ A modern, full-stack travel and destination booking platform designed to help us
 - **User Reviews & Ratings:** Users can read and leave reviews on different travel destinations.
 - **Admin Dashboard:** A dedicated admin panel for managing destinations, handling image uploads (via Multer), and viewing user contacts.
 - **Responsive UI:** A clean, professional, and fully responsive user interface built using React and Styled Components.
+- **Cloud Deployment:** Deployed frontend on AWS S3 bucket and setup backend to AWS EC2 server.
+- **Contanerized :** Contanerized the application for quickly run up the whole setup.
 
 ## 🛠️ Tech Stack
 
