@@ -10,7 +10,7 @@ connectDB();
 
 //modified cors to allow local and live frontend links
 app.use(cors({
-  origin: ["https://simple-travelgo.vercel.app", "http://localhost:5173"],
+  origin: ["https://simple-travelgo.vercel.app", "http://localhost:5173", "http://shreyash-travelgo-frontend.s3-website.ap-south-1.amazonaws.com/"],
   credentials: true
 }));
 app.use(express.json());
