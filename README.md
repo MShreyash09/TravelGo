@@ -81,7 +81,8 @@ Follow these steps to run the project locally.
    MONGO_URI=your_mongodb_connection_string
    JWT_SECRET=your_jwt_secret
    STRIPE_SECRET_KEY=your_stripe_secret_key
-   # Add Sarvam API keys if required by your controller
+   Sarvam_API_KEY=your_sarvam_api_key
+   
    ```
    Start the backend development server:
    ```bash
