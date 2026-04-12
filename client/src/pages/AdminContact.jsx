@@ -4,7 +4,7 @@ export default function AdminContacts() {
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/contact", {
+    fetch("/api/contact", {
       headers: {
         Authorization: localStorage.getItem("token")
       }
@@ -14,7 +14,7 @@ export default function AdminContacts() {
   }, []);
 
   const approve = async (id) => {
-    await fetch(`http://localhost:5000/api/contact/approve/${id}`, {
+    await fetch(`/api/contact/approve/${id}`, {
       method: "PUT",
       headers: {
         Authorization: localStorage.getItem("token")

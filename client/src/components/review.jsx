@@ -7,7 +7,7 @@ export default function Review({ destinationId }) {
   const [comment, setComment] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/reviews/${destinationId}`)
+    fetch(`/api/reviews/${destinationId}`)
       .then(res => res.json())
       .then(data => setReviews(data));
   }, [destinationId]);
@@ -16,7 +16,7 @@ export default function Review({ destinationId }) {
     const token = localStorage.getItem("token");
     if (!token) return alert("Please login");
 
-    const res = await fetch("http://localhost:5000/api/reviews", {
+    const res = await fetch("/api/reviews", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export default function Review({ destinationId }) {
     setRating(5);
 
     const refreshed = await fetch(
-      `http://localhost:5000/api/reviews/${destinationId}`
+      `/api/reviews/${destinationId}`
     );
     setReviews(await refreshed.json());
   };

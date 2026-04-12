@@ -120,7 +120,15 @@ export default function DestinationDetails() {
           {/* Image Section */}
           <div className="image-box">
             <img
-              src={destination.images && destination.images.length > 0 ? `${API_BASE_URL}${destination.images[currentImage]}` : destination.image}
+              src={
+                destination.images && destination.images.length > 0
+                  ? (destination.images[currentImage].startsWith("http")
+                    ? destination.images[currentImage]
+                    : `${API_BASE_URL}${destination.images[currentImage]}`)
+                  : (destination.image?.startsWith("http")
+                    ? destination.image
+                    : `${API_BASE_URL}${destination.image}`)
+              }
               alt={destination.name}
               loading="lazy"
             />

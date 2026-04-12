@@ -12,9 +12,15 @@ export default function DestinationCard({ destination }) {
   const destName = useTranslation(destination.name);
 
   // Fallback to destination.image just in case old db records don't have .images array
+  // Helper to handle both absolute and relative image URLs
+  const getImageUrl = (path) => {
+    if (!path) return "";
+    return path.startsWith("http") ? path : `${API_BASE_URL}${path}`;
+  };
+
   const imageUrl = destination.images && destination.images.length > 0
-    ? `${API_BASE_URL}${destination.images[0]}`
-    : destination.image;
+    ? getImageUrl(destination.images[0])
+    : getImageUrl(destination.image);
 
   return (
     <div

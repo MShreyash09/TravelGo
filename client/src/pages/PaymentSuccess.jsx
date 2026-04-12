@@ -5,7 +5,7 @@ export default function PaymentSuccess() {
   const [params] = useSearchParams();
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/payment/verify", {
+    fetch("/api/payment/verify", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1,7 +1,5 @@
-// export const API_BASE_URL = "https://travelgo-backend-bfhu.onrender.com/";
-// export const API_BASE_URL = "http://localhost:5000";
-export const API_BASE_URL = "http://13.232.182.14:5000";
-
+// Use environment variable for API URL in production, or empty string for relative proxy
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 
 export const getDestinations = async () => {
